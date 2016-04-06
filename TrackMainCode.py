@@ -41,44 +41,43 @@ class DualServos:
 			self.__rightPosNext = 1
 			self.__leftPosNext = 1
 
+	def TurnLeft(self):
+		for i in range(self.__rightPosNext, self.__rightPosCurrent, -1):
+			DC = ((1. / 18.) * i) + 2
+			self.__pwm1.ChangeDutyCycle(DC)
+			self.__pwm2.ChangeDutyCycle(DC)
+			time.sleep(0.02)
+		self.__rightPosNext = self.__rightPosCurrent
+		self.__leftPosNext = self.__leftPosCurrent
+		self.__rightPosCurrent -= 1
+		self.__leftPosCurrent -= 1
+		if self.__rightPosNext == 0:
+			self.__leftPosCurrent = 359
+			self.__rightPosCurrent = 359
+			self.__leftPosNext = 360
+			self.__rightPosNext = 360
+
+	def Reverse(self):
+		for i in range(self.__rightPosCurrent, self.__rightPosNext, 1):
+			DC = ((1. / 18.) * i) + 2
+			self.__pwm1.ChangeDutyCycle(DC)
+			time.sleep(0.02)
+		self.__rightPosCurrent = self.__rightPosNext
+		self.__rightPosNext += 1
+		if self.__rightPosCurrent == 360:
+			self.__rightPosCurrent = 0
+			self.__rightPosNext = 1
+		for i in range(self.__leftPosNext, self.__leftPosCurrent, -1):
+			DC = ((1. / 18.) * i) + 2
+			self.__pwm2.ChangeDutyCycle(DC)
+			time.sleep(0.02)
+		self.__leftPosNext = self.__leftPosCurrent
+		self.__leftPosCurrent -= 1
+		if self.__leftPosNext == 0:
+			self.__leftPosNext = 360
+			self.__leftPosCurrent = 359
+
 while (1):
-
-
-	#while(fileRight == 1):
-		for i in range(rightPosCurrent, rightPosNext, 1):
-			DC = ((1./18.) * i) + 2
-			pwm1.ChangeDutyCycle(DC)
-			pwm2.ChangeDutyCycle(DC)
-			time.sleep(0.02)
-		leftPosCurrent = leftPosNext
-		rightPosCurrent = rightPosNext
-		leftPosNext += 1
-		rightPosNext += 1
-		if rightPosCurrent == 360:
-			rightPosCurrent = 0
-			leftPosCurrent = 0
-			rightPosNext = 1
-			leftPosNext = 1
-		tempRight = open('Right', 'r')
-		fileRight = int(tempRight.read())
-
-	#while(fileLeft == 1):
-		for i in range(rightPosNext, rightPosCurrent, -1):
-			DC = ((1./18.) * i) + 2
-			pwm1.ChangeDutyCycle(DC)
-			pwm2.ChangeDutyCycle(DC)
-			time.sleep(0.02)
-		rightPosNext = rightPosCurrent
-		leftPosNext = leftPosCurrent
-		rightPosCurrent -= 1
-		leftPosCurrent -= 1
-		if rightPosNext == 0:
-			leftPosCurrent = 359
-			rightPosCurrent = 359
-			leftPosNext = 360
-			rightPosNext = 360 
-		tempLeft = open('Left', 'r')
-		fileLeft = int(tempLeft.read())
 
 	#while(fileReverse == 1):
 		for i in range(rightPosCurrent, rightPosNext, 1):
