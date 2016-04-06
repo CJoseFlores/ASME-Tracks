@@ -2,7 +2,8 @@ import RPi.GPIO as GPIO
 import time
 import random
 
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 servoPin1 = 12
 servoPin2 = 8
 GPIO.setup(servoPin1, GPIO.OUT)
@@ -49,7 +50,7 @@ while (1):
 			rightPosNext = 1
 			leftPosNext = 1
 		tempRight = open('Right', 'r')
-	        fileRight = int(tempRight.read())
+		fileRight = int(tempRight.read())
 
 	while(fileLeft == 1):
 		for i in range(rightPosNext, rightPosCurrent, -1):
@@ -67,7 +68,7 @@ while (1):
 			leftPosNext = 360
 			rightPosNext = 360 
 		tempLeft = open('Left', 'r')
-	        fileLeft = int(tempLeft.read())
+		fileLeft = int(tempLeft.read())
 
 	while(fileReverse == 1):
 		for i in range(rightPosCurrent, rightPosNext, 1):
@@ -89,7 +90,7 @@ while (1):
 			leftPosNext = 360
 			leftPosCurrent = 359
 		tempReverse = open('Reverse', 'r')
-        	fileReverse = int(tempReverse.read())
+		fileReverse = int(tempReverse.read())
 
 	while(fileForward == 1):
 		for i in range(rightPosNext, rightPosCurrent, -1):
@@ -111,7 +112,7 @@ while (1):
 			leftPosCurrent = 0
 			leftPosNext = 1
 		tempForward = open('Forward', 'r')
-        	fileForward = int(tempForward.read())
+		fileForward = int(tempForward.read())
 
 	while(fileRoam == 1):
 		for j in range(0, 30, 1):
@@ -155,4 +156,3 @@ while (1):
 
 pwm1.stop()
 pwm2.stop()
-GPIO.cleanup()
