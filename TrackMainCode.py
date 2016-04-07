@@ -98,6 +98,6 @@ class DualServos:
             self.__leftPosCurrent = 0
             self.__leftPosNext = 1
 
-
-pwm1.stop()
-pwm2.stop()
+    def Stop(self):
+        self.__pwm1.stop()
+        self.__pwm2.stop()
