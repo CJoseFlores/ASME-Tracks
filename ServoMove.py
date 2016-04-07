@@ -4,8 +4,8 @@ import random
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
-servoPin1 = 12
-servoPin2 = 8
+servoPin1 = 14
+servoPin2 = 18
 GPIO.setup(servoPin1, GPIO.OUT)
 GPIO.setup(servoPin2, GPIO.OUT)
 pwm1 = GPIO.PWM(servoPin1, 50)
