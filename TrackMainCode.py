@@ -77,90 +77,25 @@ class DualServos:
 			self.__leftPosNext = 360
 			self.__leftPosCurrent = 359
 
-while (1):
-
-	#while(fileReverse == 1):
-		for i in range(rightPosCurrent, rightPosNext, 1):
-			DC = ((1./18.) * i) + 2
-			pwm1.ChangeDutyCycle(DC)
+	def Forward(self):
+		for i in range(self.__rightPosNext, self.__rightPosCurrent, -1):
+			DC = ((1. / 18.) * i) + 2
+			self.__pwm1.ChangeDutyCycle(DC)
 			time.sleep(0.02)
-		rightPosCurrent = rightPosNext
-		rightPosNext += 1
-		if rightPosCurrent == 360:
-			rightPosCurrent = 0
-			rightPosNext = 1
-		for i in range(leftPosNext, leftPosCurrent, -1):
-			DC = ((1./18.) * i) + 2
-			pwm2.ChangeDutyCycle(DC)
+		self.__rightPosNext = self.__rightPosCurrent
+		self.__rightPosCurrent -= 1
+		if self.__rightPosNext == 0:
+			self.__rightPosNext = 360
+			self.__rightPosCurrent = 359
+		for i in range(self.__leftPosCurrent, self.__leftPosNext, 1):
+			DC = ((1. / 18.) * i) + 2
+			self.__pwm2.ChangeDutyCycle(DC)
 			time.sleep(0.02)
-		leftPosNext = leftPosCurrent
-		leftPosCurrent -= 1
-		if leftPosNext == 0:
-			leftPosNext = 360
-			leftPosCurrent = 359
-		tempReverse = open('Reverse', 'r')
-		fileReverse = int(tempReverse.read())
-
-	#while(fileForward == 1):
-		for i in range(rightPosNext, rightPosCurrent, -1):
-			DC = ((1./18.) * i) + 2
-			pwm1.ChangeDutyCycle(DC)
-			time.sleep(0.02)
-		rightPosNext = rightPosCurrent
-		rightPosCurrent -= 1
-		if rightPosNext == 0:
-			rightPosNext = 360
-			rightPosCurrent = 359
-		for i in range(leftPosCurrent, leftPosNext, 1):
-			DC = ((1./18.) * i) + 2
-			pwm2.ChangeDutyCycle(DC)
-			time.sleep(0.02)
-		leftPosCurrent = leftPosNext
-		leftPosNext += 1
-		if leftPosCurrent == 360:
-			leftPosCurrent = 0
-			leftPosNext = 1
-		tempForward = open('Forward', 'r')
-		fileForward = int(tempForward.read())
-
-	#while(fileRoam == 1):
-		for j in range(0, 30, 1):
-			for i in range(rightPosNext, rightPosCurrent, -1):
-				DC = ((1./18.) * i) + 2
-				pwm1.ChangeDutyCycle(DC)
-				time.sleep(0.02)
-			rightPosNext = rightPosCurrent
-			rightPosCurrent -= 1
-			if rightPosNext == 0:
-				rightPosNext = 360
-				rightPosCurrent = 359
-			for i in range(leftPosCurrent, leftPosNext, 1):
-				DC = ((1./18.) * i) + 2
-				pwm2.ChangeDutyCycle(DC)
-				time.sleep(0.02)
-			leftPosCurrent = leftPosNext
-			leftPosNext += 1
-			if leftPosCurrent == 360:
-				leftPosCurrent = 0
-				leftPosNext = 1
-		randValue = randrange(361, 720)
-		for j in range(0, randValue, 1):
-			for i in range(leftPosCurrent, leftPosNext, 1):
-				DC = ((1./18.) * i) + 2)
-				pwm1.ChangeDutyCycle(DC)
-				pwm2.ChangeDutyCycle(DC)
-				sleep.time(0.02)
-			rightPosCurrent = rightPosNext
-			leftPosCurrent = leftPosNext
-			rightPosNext += 1
-			leftPosNext += 1
-			if rightPosCurrent == 360:
-				rightPosCurrent = 0
-				rightPosNext = 1
-				leftPosCurrent 0
-				leftPosNext = 1
-		tempRoam = open('Roam', 'r')
-		fileRoam = int(tempRoam.read())
+		self.__leftPosCurrent = self.__leftPosNext
+		self.__leftPosNext += 1
+		if self.__leftPosCurrent == 360:
+			self.__leftPosCurrent = 0
+			self.__leftPosNext = 1
 	
 
 pwm1.stop()
