@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 import random
-from TrackMainCode import DualServos
+from DualServos import DualServos
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
